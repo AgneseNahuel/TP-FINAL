@@ -8,16 +8,16 @@ class Cancion(models.Model):
     fechadesalida=models.DateField(max_length=50)
 
     def __str__(self) -> str:
-        return self.nombre+" "+self.duracion+" "+self.fechadesalida
+        return self.nombre+" "+str(self.duracion)+" "+str(self.fechadesalida)
 
-class clientes(models.Model):
+class Juego(models.Model):
 
     nombre= models.CharField(max_length=50)
     duracion=models.IntegerField()
     fechadesalida=models.DateField(max_length=50)
 
     def __str__(self) -> str:
-        return self.nombre+" "+self.duracion+" "+self.fechadesalida
+        return self.nombre+" "+str(self.duracion)+" "+str(self.fechadesalida)
 
 class Autor(models.Model):
 
@@ -26,4 +26,4 @@ class Autor(models.Model):
     fechadenacimiento=models.DateField(max_length=50)
 
     def __str__(self) -> str:
-        return self.nombre+" "+self.edad+" "+self.fechadenacimiento
+        return self.nombre+" "+str(self.edad)+" "+str(self.fechadenacimiento)
