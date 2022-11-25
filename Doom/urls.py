@@ -1,6 +1,8 @@
 from django.urls import path
-from Doom.views import *
+from .views import *
 
 urlpatterns = [
-    path("", inicio, name=inicio),
+    path("", inicio, name="inicio"),
+    path("bio/", biografia, name="biografia"),
+    path("doom/", Doom, name="doom"),
 ]
