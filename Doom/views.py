@@ -9,10 +9,39 @@ def inicio(request):
     return render (request, "inicio.html")
 
 def formularioAutor(request):
+    if request.method=="POST":
+        form=formularioA(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            nombre=informacion["nombre"]
+            edad=informacion["edad"]
+            fechadenacimiento=informacion["fechadenacimiento"]
+            
+            busqueda=Autor(nombre=nombre, edad=edad, fechadenacimiento=fechadenacimiento)
+            busqueda.save()
+            return render (request, "inicio.html", {"mensaje":"se creo bien"})
+        else:
+            formulario=formularioA
+        return render(request, "formularioAutor.html", {"form":formulario})
+
     return render(request, "formularioAutor.html")
 
 def formularioJuego(request):
-    return render(request, "formularioJuego.html")
+    if request.method=="POST":
+        form=formularioJ(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            nombreV=informacion["nombre"]
+            duracionV=informacion["duracion"]
+            fechadesalidaV=informacion["fechadesalida"]
+
+            busqueda2=Juego(nombre=nombreV, duracion=duracionV, fechadesalida=fechadesalidaV)
+            busqueda2.save()
+            return render (request, "inicio.html", {"mensaje":"se creo bien"})
+    else:
+        formulario=formularioJ()
+
+    return render(request, "formularioJuego.html", {"form":formulario})
 
 def formularioCancion(request):
     
