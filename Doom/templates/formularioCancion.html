@@ -1,0 +1,25 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">Guarde Su Infromacion</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>FORMULARIO CANCION</h1>
+
+<form action="{% url 'formularioCancion' %}" method="POST">    {% csrf_token %}
+
+<table>
+    
+    {{ form.as_table }}
+
+</table>
+
+    <p>autor:      <input type="submit" value="Enviar">           </p>
+
+
+</form>
+
+{% endblock %}

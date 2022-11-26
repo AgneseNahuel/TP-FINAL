@@ -3,6 +3,7 @@ from .views import *
 
 urlpatterns = [
     path("", inicio, name="inicio"),
-    path("bio/", biografia, name="biografia"),
-    path("doom/", Doom, name="doom"),
+    path("formularioAutor/", formularioAutor, name="formularioAutor"),
+    path("formularioJuego/", formularioJuego, name="formularioJuego"),
+    path("formularioCancion/", formularioCancion, name="formularioCancion"),
 ]
