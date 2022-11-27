@@ -1,0 +1,23 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">Busque su Infromacion</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>RESULTADOS CANCION</h1>
+
+<ul>
+{% for nombres in nombrec %}
+    <li>{{nombres.nombre}}</li>
+    <li>{{nombres.duracion}}</li>
+    <li>{{nombres.fechadesalida}}</li>
+    <br>
+{% endfor %}
+</ul>
+
+
+
+{% endblock %}

@@ -63,3 +63,14 @@ def formularioCancion(request):
         formulario=formularioC()
 
     return render(request, "formularioCancion.html", {"form":formulario})
+
+def busquedac(request):
+    return render(request, "busquedac.html")
+
+def buscar(request):
+    if request.GET["nombre"]:
+        nombre=request.GET["nombre"]
+        nombrec=Cancion.objects.filter(nombre__icontains=nombre)
+        return render(request, "resultadocancion.html", {"nombrec":nombrec})
+    else:
+        return render(request, "busquedac.html", {"mensaje":"NO VALIDO"})
