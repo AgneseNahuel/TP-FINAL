@@ -67,7 +67,7 @@ def formularioCancion(request):
 def busquedac(request):
     return render(request, "busquedac.html")
 
-def buscar(request):
+def buscarc(request):
     if request.GET["nombre"]:
         nombre=request.GET["nombre"]
         nombrec=Cancion.objects.filter(nombre__icontains=nombre)
