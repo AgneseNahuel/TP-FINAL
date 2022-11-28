@@ -20,9 +20,9 @@ def formularioAutor(request):
             busqueda=Autor(nombre=nombre, edad=edad, fechadenacimiento=fechadenacimiento)
             busqueda.save()
             return render (request, "inicio.html", {"mensaje":"se creo bien"})
-        else:
-            formulario=formularioA
-        return render(request, "formularioAutor.html", {"form":formulario})
+    else:
+        formulario=formularioA
+    return render(request, "formularioAutor.html", {"form":formulario})
 
     return render(request, "formularioAutor.html")
 
