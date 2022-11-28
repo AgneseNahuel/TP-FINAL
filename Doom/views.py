@@ -64,6 +64,7 @@ def formularioCancion(request):
 
     return render(request, "formularioCancion.html", {"form":formulario})
 
+#esta es la vista para buscar
 def busquedac(request):
     return render(request, "busquedac.html")
 
