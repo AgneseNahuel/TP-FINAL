@@ -1,0 +1,25 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">Guarde Su Infromacion</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>LISTADO DE AUTORES</h1>
+
+<ul>
+    {% for autor in object_list %}
+    <li>{{ autor }}</li>
+
+       
+    {% endfor %}
+
+
+</ul>
+<h3>
+    {{ mensaje }}
+</h3>
+
+{% endblock %}

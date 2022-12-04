@@ -1,0 +1,27 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">Guarde Su Infromacion</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>LISTADO DE CANCION</h1>
+
+<ul>
+    {% for canc in canciones %}
+    <li>{{ canc.nombre }}</li>
+
+        <a class="btn btn-danger" href="{% url 'eliminarCancion' canc.id %}">Borrar</a>
+        <a class="btn btn-success" href="{% url 'editarCancion' canc.id %}">Editar</a>
+
+    {% endfor %}
+
+
+</ul>
+<h3>
+    {{ mensaje }}
+</h3>
+
+{% endblock %}

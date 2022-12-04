@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.template import loader
 from Doom.models import *
 from .forms import *
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 def inicio(request):
@@ -43,6 +46,7 @@ def formularioJuego(request):
 
     return render(request, "formularioJuego.html", {"form":formulario})
 
+#Crud CANCION
 def formularioCancion(request):
     
     if request.method=="POST":
@@ -75,3 +79,55 @@ def buscarc(request):
         return render(request, "resultadocancion.html", {"nombrec":nombrec})
     else:
         return render(request, "busquedac.html", {"mensaje":"NO VALIDO"})
+
+#CRUD CANCION!!
+
+def leerCanciones(request):
+    canciones=Cancion.objects.all()
+    return render(request, "LeerCancion.html", {"canciones": canciones})
+
+
+def eliminarCanciones(request, id):
+    cancion=Cancion.objects.get(id=id)
+    cancion.delete()
+    canciones=Cancion.objects.all()
+    return render(request, "LeerCancion.html", {"mensaje":"CANCION ELIMINADA", "canciones":canciones})
+
+
+def editarCancion(request, id):
+    cancion=Cancion.objects.get(id=id)
+    if request.method=="POST":
+        form=formularioC(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            cancion.nombre=informacion["nombre"]
+            cancion.duracion=informacion["duracion"]
+            cancion.fechadesalida=informacion["fechadesalida"]
+            cancion.save()
+            canciones=Cancion.objects.all()
+            return render (request, "leerCancion.html", {"mensaje": "CANCION EDITADA", "canciones":canciones})
+    else:
+        formulario=formularioC(initial={"nombre":cancion.nombre, "duracion":cancion.duracion, "fechadesalida":cancion.fechadesalida})
+        return render(request, "editarCancion.html",{"form":formulario, "cancion":cancion})
+
+#CRUD AUTOR
+class AutorList(ListView):
+    model= Autor
+    template_name="leerAutor.html"
+
+class AutorCreacion(CreateView):#PREGUNTAR POR TEMPLATES
+    model = Autor
+    success_url = reverse_lazy('autor_listar')
+    template_name="autor_form.html"
+    fields=['nombre', 'edad', 'fechadenacimiento']
+
+class AutorUpdate(UpdateView):
+    model= Autor
+    success_url = reverse_lazy("autor_listar")
+    template_name="autor_form.html"
+    fields= ["nombre", "edad", "fechadenacimiento"]
+
+class AutorDelete(DeleteView):
+    model= Autor
+    template_name="autor_confirm_delete.html"
+    success_url = reverse_lazy("autor_listar")

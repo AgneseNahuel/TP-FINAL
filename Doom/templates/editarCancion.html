@@ -1,0 +1,25 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">Guarde Su Infromacion</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>EDITAR CANCION {{ cancion }}</h1>
+
+<form action="{% url 'editarCancion' cancion.id %}" method="POST">    {% csrf_token %}
+
+<table>
+    
+    {{ form.as_table }}
+
+</table>
+
+    <p>Clic para :       <input type="submit" value="Editar">           </p>
+
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">Guarde Su Infromacion</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>FORMULARIO AUTORES</h1>
+
+<form  method="post"> {% csrf_token %}
+    {{ form.as_p }}
+    <p>Clic para :<input type="submit" value="Guardar">           </p>
+
+
+</form>
+
+{% endblock %}
