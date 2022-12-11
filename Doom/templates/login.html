@@ -7,9 +7,9 @@
 {% endblock %}
 
 {% block formulario %}
-<h1>FORMULARIO JUEGO</h1>
+<h1>FORMULARIO DE INGRESO</h1>
 
-<form action="{% url 'formularioJuego' %}" method="POST">    {% csrf_token %}
+<form action="{% url 'login' %}" method="POST">    {% csrf_token %}
 
 <table>
     
@@ -17,9 +17,11 @@
 
 </table>
 
-    <p>Clic para :      <input type="submit" value="Enviar">           </p>
+    <p>Clic para :       <input type="submit" value="INGRESAR">           </p>
 
 
 </form>
+
+{{ mensaje }}
 
 {% endblock %}

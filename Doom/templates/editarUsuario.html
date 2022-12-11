@@ -1,0 +1,27 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">Editar usuario {{ nombreusuario }}</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>FORMULARIO DE REGISTRO</h1>
+
+<form action="{% url 'editarPerfil' %}" method="POST">    {% csrf_token %}
+
+<table>
+    
+    {{ form.as_table }}
+
+</table>
+
+    <p>Clic para :       <input type="submit" value="Modificar">           </p>
+
+
+</form>
+
+{{ mensaje }}
+
+{% endblock %}

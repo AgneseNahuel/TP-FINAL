@@ -23,12 +23,19 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'inicio' %}">WikiGeek</a>
+                <a class="navbar-brand" href="{% url 'inicio' %}">WikiDOOM</a>
                 <a class="btn btn-primary" href="{% url 'inicio' %}">Inicio</a>
                 <a class="btn btn-primary" href="{% url 'formularioJuego' %}">FormularioJuego</a>
                 <a class="btn btn-primary" href="{% url 'formularioAutor' %}">FormularioAutor</a>
                 <a class="btn btn-primary" href="{% url 'formularioCancion' %}">FormularioCancion</a>
-                <a class="btn btn-primary" href="{% url 'buscarc' %}">BuscarCancion</a>
+                
+                {% if user.is_authenticated %}
+                <p>Bienvenido  {{ user.username }}</p><!----Si esta logueado conoce--->
+                <a class="btn btn-danger" href="{% url 'logout' %}">DESLOGUEARME</a>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">LOGIN</a>
+                {% endif %}
+
             
             </div>
         </nav>
@@ -80,14 +87,14 @@
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-2.jpg')"></div>
+                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('tpfinal\Doom\static\DOOM\assets\img\M_Gordon.webp')"></div>
                     <div class="col-lg-6 my-auto showcase-text">
                         <h2>Updated For Bootstrap 5</h2>
                         <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 5 is leading the way in mobile responsive web development! All of the themes on Start Bootstrap are now using Bootstrap 5!</p>
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-3.jpg')"></div>
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('tpfinal\Doom\static\DOOM\assets\img\M_Gordon.webp')"></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                         <h2>Easy to Use & Customize</h2>
                         <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options. Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
