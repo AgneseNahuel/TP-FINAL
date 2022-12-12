@@ -31,6 +31,7 @@
                 
                 {% if user.is_authenticated %}
                 <p>Bienvenido  {{ user.username }}</p><!----Si esta logueado conoce--->
+                <img src="{{ imagen }}" alt="">
                 <a class="btn btn-danger" href="{% url 'logout' %}">DESLOGUEARME</a>
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'login' %}">LOGIN</a>

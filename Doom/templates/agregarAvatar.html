@@ -1,0 +1,27 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">AGREGANDO AVATAR DE {{ usuario.user }}</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>FORMULARIO DE REGISTRO</h1>
+
+<form action="{% url 'agregarAvatar' %}" method="POST" enctype="multipart/form-data">    {% csrf_token %}
+
+<table>
+    
+    {{ formulario.as_table }}
+
+</table>
+
+    <p>Clic para :       <input type="submit" value="Agregar Avatar">           </p>
+
+
+</form>
+
+{{ mensaje }}
+
+{% endblock %}

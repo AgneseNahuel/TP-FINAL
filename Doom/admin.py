@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Cancion)
 admin.site.register(Juego)
 admin.site.register(Autor)
+admin.site.register(Avatar)

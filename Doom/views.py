@@ -11,10 +11,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin #vistas basadas en cla
 from django.contrib.auth.decorators import login_required #vistas basadas en funciones
 
 
+def obtenerAvatar(request):
+    lista=Avatar.objects.filter(user=request.user)
+    if len(lista)!=0:
+        imagen=lista[0].imagen.url
+    else:
+        imagen="/media/avatares/avatarpordefecto.png"
+    return imagen
+
 @login_required
 # Create your views here.
 def inicio(request):
-    return render (request, "inicio.html")
+    lista=Avatar.objects.filter(user=request.user)
+    return render (request, "inicio.html", {"imagen":obtenerAvatar(request)})
 
 @login_required
 def formularioAutor(request):
@@ -28,13 +37,13 @@ def formularioAutor(request):
             
             busqueda=Autor(nombre=nombre, edad=edad, fechadenacimiento=fechadenacimiento)
             busqueda.save()
-            return render (request, "inicio.html", {"mensaje":"se creo bien"})
+            return render (request, "inicio.html", {"mensaje":"se creo bien", "imagen":obtenerAvatar(request)})
         else:
             formulario=formularioA
-            return render(request, "formularioAutor.html", {"form":formulario}, {"mensaje":"error"})
+            return render(request, "formularioAutor.html", {"form":formulario}, {"mensaje":"error", "imagen":obtenerAvatar(request)})
     else:
         formulario=formularioA
-    return render(request, "formularioAutor.html", {"form":formulario})
+    return render(request, "formularioAutor.html", {"form":formulario, "imagen":obtenerAvatar(request)})
 
     return render(request, "formularioAutor.html")
 @login_required
@@ -49,11 +58,11 @@ def formularioJuego(request):
 
             busqueda2=Juego(nombre=nombreV, duracion=duracionV, fechadesalida=fechadesalidaV)
             busqueda2.save()
-            return render (request, "inicio.html", {"mensaje":"se creo bien"})
+            return render (request, "inicio.html", {"mensaje":"se creo bien", "imagen":obtenerAvatar(request)})
     else:
         formulario=formularioJ()
 
-    return render(request, "formularioJuego.html", {"form":formulario})
+    return render(request, "formularioJuego.html", {"form":formulario, "imagen":obtenerAvatar(request)})
 
 @login_required
 #Crud CANCION
@@ -75,7 +84,7 @@ def formularioCancion(request):
             return render (request, "inicio.html")
     else:
         formulario=formularioC() 
-    return render(request, "formularioCancion.html", {"form":formulario})
+    return render(request, "formularioCancion.html", {"form":formulario, "imagen":obtenerAvatar(request)})
 
 @login_required
 #esta es la vista para buscar
@@ -86,9 +95,9 @@ def buscarc(request):
     if request.GET["nombre"]:
         nombre=request.GET["nombre"]
         nombrec=Cancion.objects.filter(nombre__icontains=nombre)#__icontains, no tiene que ser exacto
-        return render(request, "resultadocancion.html", {"nombrec":nombrec})
+        return render(request, "resultadocancion.html", {"nombrec":nombrec, "imagen":obtenerAvatar(request)})
     else:
-        return render(request, "busquedac.html", {"mensaje":"NO VALIDO"})
+        return render(request, "busquedac.html", {"mensaje":"NO VALIDO", "imagen":obtenerAvatar(request)})
 
 #CRUD CANCION!!
 @login_required
@@ -115,9 +124,9 @@ def editarCancion(request, id):
             cancion.fechadesalida=informacion["fechadesalida"]
             cancion.save()
             canciones=Cancion.objects.all()
-            return render (request, "leerCancion.html", {"mensaje": "CANCION EDITADA", "canciones":canciones})
+            return render (request, "leerCancion.html", {"mensaje": "CANCION EDITADA", "canciones":canciones, "imagen":obtenerAvatar(request)})
     else:
-        formulario=formularioC(initial={"nombre":cancion.nombre, "duracion":cancion.duracion, "fechadesalida":cancion.fechadesalida})
+        formulario=formularioC(initial={"nombre":cancion.nombre, "duracion":cancion.duracion, "fechadesalida":cancion.fechadesalida, "imagen":obtenerAvatar(request)})
         return render(request, "editarCancion.html",{"form":formulario, "cancion":cancion})
 
 
@@ -194,7 +203,24 @@ def editarPerfil(request):
             usuario.save()
             return render(request, "inicio.html", {"mensaje":"Perfil editado correctamente"})
         else:
-            return render(request, "editarUsuario.html", {"mensaje":"Perfil editado correctamente", "form":form, "nombreusuario":usuario.usermane})     
+            return render(request, "editarUsuario.html", {"mensaje":"Perfil editado correctamente", "form":form, "nombreusuario":usuario.username})     
     else:
         form=UserEditForm(instance=usuario)
-        return render(request, "editarUsuario.html", {"form":form, "nombreusuario":usuario.username})
+        return render(request, "editarUsuario.html", {"form":form, "nombreusuario":usuario.username, "imagen":obtenerAvatar(request)})
+
+@login_required
+def AgregarAvatar(request):
+    if request.method=="POST":
+        form=AvatarForm(request.POST, request.FILES)#TRAE ARCHIVOS CON EL "FILES"
+        if form.is_valid():
+            avatarViejo=Avatar.objects.filter(user=request.user)
+            if len(avatarViejo)!=0:
+                avatarViejo[0].delete()
+            avatar=Avatar(user=request.user, imagen=request.FILES["imagen"])
+            avatar.save()
+            return render(request, "inicio.html", {"mensaje":"Avatar agregado correctamente", "imagen":obtenerAvatar(request)})
+        else:
+            return render(request, "AgregarAvatar.html", {"formulario":form, "usuario":request.user, "imagen":obtenerAvatar(request)})
+    else:
+        form=AvatarForm()
+        return render(request, "AgregarAvatar.html", {"formulario":form, "usuario":request.user, "imagen":obtenerAvatar(request)})
