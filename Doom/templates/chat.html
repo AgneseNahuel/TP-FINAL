@@ -1,0 +1,25 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    <h1 style="color: rgb(146, 0, 0)">CHAT</h1>
+{% endblock %}
+
+{% block formulario %}
+<h1>CHAT</h1>
+
+<form action="{% url 'mensaje' %}" method="POST">    {% csrf_token %}
+
+<table>
+    
+    {{ formulario.as_table }}
+
+</table>
+
+    <p>Clic para :       <input type="submit" value="Enviar">           </p>
+
+
+</form>
+
+{% endblock %}

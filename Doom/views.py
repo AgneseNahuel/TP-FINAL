@@ -45,7 +45,6 @@ def formularioAutor(request):
         formulario=formularioA
     return render(request, "formularioAutor.html", {"form":formulario, "imagen":obtenerAvatar(request)})
 
-    return render(request, "formularioAutor.html")
 @login_required
 def formularioJuego(request):
     if request.method=="POST":
@@ -224,3 +223,8 @@ def AgregarAvatar(request):
     else:
         form=AvatarForm()
         return render(request, "AgregarAvatar.html", {"formulario":form, "usuario":request.user, "imagen":obtenerAvatar(request)})
+
+@login_required
+def aboutMe(request):
+    return render (request, "AcercaDeMi.html", {"imagen":obtenerAvatar(request)})
+

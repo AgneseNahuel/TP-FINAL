@@ -22,5 +22,6 @@ urlpatterns = [
     path("register/", register, name="register"),#REGISTER
     path("logout/", LogoutView.as_view(), name="logout"),#LOGOUT
     path("editarPerfil/", editarPerfil, name="editarPerfil"),
-    path("agregarAvatar/", AgregarAvatar, name="agregarAvatar")
+    path("agregarAvatar/", AgregarAvatar, name="agregarAvatar"),
+    path("about/", aboutMe, name="aboutMe"),
 ]

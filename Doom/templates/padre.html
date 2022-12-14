@@ -28,6 +28,7 @@
                 <a class="btn btn-primary" href="{% url 'formularioJuego' %}">FormularioJuego</a>
                 <a class="btn btn-primary" href="{% url 'formularioAutor' %}">FormularioAutor</a>
                 <a class="btn btn-primary" href="{% url 'formularioCancion' %}">FormularioCancion</a>
+                <a class="btn btn-primary" href="{% url 'aboutMe' %}">ABOUT</a>
                 
                 {% if user.is_authenticated %}
                 <p>Bienvenido  {{ user.username }}</p><!----Si esta logueado conoce--->

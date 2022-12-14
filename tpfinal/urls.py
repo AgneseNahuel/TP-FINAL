@@ -19,11 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from Doom.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("doom/", include("Doom.urls")),#Include padre
-  # path("/", vistaInicio, name="inicio"),
+    path("mensajeria/", include("mensajeria.urls")),#Include padre
+    path("", inicio, name="inicio"),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
